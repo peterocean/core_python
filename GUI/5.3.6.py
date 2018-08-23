@@ -4,42 +4,43 @@
 
 import os
 from time import sleep
-form Tkinter import *
+from tkinter import *
 
-class DirList(Object):
-    self.top = Tk()
-    self.label = Lable(self.top,text = 'Directory Lister v1.1')
-    self.label.pack()
+class DirList(object):
+    def __init__(self, initdir = None):
+        self.top = Tk()
+        self.label = Label(self.top,text = 'Directory Lister v1.1')
+        self.label.pack()
 
-    self.cwd = StringVar(self.top)
-    self.dirl = Label(self.top,fg = 'blue', font = ('Helvetica', 12, 'bold'))
-    self.dirl.pack()
+        self.cwd = StringVar(self.top)
+        self.dirl = Label(self.top,fg = 'blue', font = ('Helvetica', 12, 'bold'))
+        self.dirl.pack()
 
-    self.dirfm = Frame(self.top)
-    self.dirsb = Scrollbar(self.dirfm)
-    self.dirsb.pack(side = RIGHT, fill = Y)
-    self.dirs = Listbox(self.dirfm,height =15 ,width = 50, yscrollcommand = self.setDirAndGo)
-    self.dirs.bind('<Double-1>',self.setDirAndGo)
-    self.dirsb.config(command = self.dirs.yview)
-    self.dirs.pack(side = LEFT, fill = BOTH)
-    self.dirfm.pack()
+        self.dirfm = Frame(self.top)
+        self.dirsb = Scrollbar(self.dirfm)
+        self.dirsb.pack(side = RIGHT, fill = Y)
+        self.dirs = Listbox(self.dirfm,height =15 ,width = 50, yscrollcommand = self.setDirAndGo)
+        self.dirs.bind('<Double-1>',self.setDirAndGo)
+        self.dirsb.config(command = self.dirs.yview)
+        self.dirs.pack(side = LEFT, fill = BOTH)
+        self.dirfm.pack()
 
-    self.dirn = Entry(self.top, width = 50, textvariable = self.cwd)
-    self.dirn.bind('<Return>', self.doLS)
-    self.dirn.pack()
+        self.dirn = Entry(self.top, width = 50, textvariable = self.cwd)
+        self.dirn.bind('<Return>', self.doLS)
+        self.dirn.pack()
 
-    self.bfm = Frame(self.top)
-    self.clr = Button(self.bfm, text = 'Clear', command = self.clrDir, activeforeground = 'white', activebackground = 'blue')
-    self.ls = Button(self.bfm,text = 'List Directory', command = self.doLS, activeforeground = 'while', activebackground = 'green')
-    self.quit = Button(self.bfm, text = 'Quit', command = self.top.quit,activeforeground = 'white', activebackground = 'red')
-    self.clr.pack(side = LEFT)
-    self.ls.pack(side = LEFT)
-    self.quit.pack(side = LEFT)
-    self.bfm.pack()
+        self.bfm = Frame(self.top)
+        self.clr = Button(self.bfm, text = 'Clear', command = self.clrDir, activeforeground = 'white', activebackground = 'blue')
+        self.ls = Button(self.bfm,text = 'List Directory', command = self.doLS, activeforeground = 'while', activebackground = 'green')
+        self.quit = Button(self.bfm, text = 'Quit', command = self.top.quit,activeforeground = 'white', activebackground = 'red')
+        self.clr.pack(side = LEFT)
+        self.ls.pack(side = LEFT)
+        self.quit.pack(side = LEFT)
+        self.bfm.pack()
 
-    if initdir:
-        self.cwd.set(os.curdir)
-        self.doLS()
+        if initdir:
+            self.cwd.set(os.curdir)
+            self.doLS()
 
     def clrDir(self, ev = None):
         self.cwd.set('')
@@ -60,7 +61,7 @@ class DirList(Object):
 
         if not os.path.exists(tdir):
             error = tdir + ':no such file'
-        elif not os.path,isdir(tdir):
+        elif not os.path.isdir(tdir):
             error = tdir + ':not a director'
 
         if error:
@@ -84,17 +85,17 @@ class DirList(Object):
         self.dirs.delete(0, END)
         self.dirs,insert(END, os.curdir)
         self.dirs.insert(END,os.pardir)
-        for eachFile in dirlist：
+        for eachFile in dirlist:
             self.dirs.insert(END, eachFile)
             self.cwd.set(os.curdir)
             self.dirs.config(selectbackground = 'LightSkyBlue')
 
-    def main():
-        d = DirList(os.curdir)
-        mainloop()
+def main():
+    d = DirList(os.curdir)
+    mainloop()
 
-    if __name__ == '__main__;:
-        main()
+if __name__ == '__main__':
+    main()
         
 
         
